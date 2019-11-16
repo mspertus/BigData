@@ -1,0 +1,2 @@
+create 'weather_delays_by_route', 'delay'
+exit
