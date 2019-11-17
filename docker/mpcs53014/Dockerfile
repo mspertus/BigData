@@ -1,12 +1,6 @@
-FROM marcelmittelstaedt/spark_base:latest
+FROM mspertus/mpcs53014_hive:latest
 
 MAINTAINER Mike Spertus <mike@spertus.com>
-
-# Switch hive to use mysql metastore
-# RUN /bin/bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password hadoop'"
-# RUN /bin/bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password hadoop'"
-# RUN apt-get install -y mysql-server
-# RUN apt-get install -y libmysql-java
 
 # Install Node.js
 RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
@@ -15,9 +9,6 @@ RUN apt-get install -y nodejs
 # Switch To Hadoop User
 USER hadoop
 WORKDIR /home/hadoop
-# RUN ln -s /usr/share/java/mysql-connector-java.jar /home/hadoop/lib/mysql-connector-java.jar
-COPY core-site.xml hadoop/etc/hadoop/core-site.xml
-RUN ln -s /home/hadoop/hadoop/etc/core-site.xml /home/hadoop/spark/conf/core-site.xml
 
 # Download and Install HBase
 RUN wget http://archive.apache.org/dist/hbase/2.0.2/hbase-2.0.2-bin.tar.gz && tar -xvzf hbase-2.0.2-bin.tar.gz && rm hbase-2.0.2-bin.tar.gz && mv hbase-2.0.2 hbase
@@ -80,6 +71,6 @@ EXPOSE 30000-50000
 EXPOSE 3000-3100
 
 # Start startup Script
-ENTRYPOINT ["/startup.sh"]
+ENTRYPOINT ["/startup_hive.sh"]
 
 
