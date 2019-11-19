@@ -23,22 +23,12 @@ COPY init_container.sh /init_container.sh
 
 RUN /init_container.sh
 COPY startup_hive.sh /startup_hive.sh
+COPY startup.sh /startup.sh
 
 #Expose Hadoop Ports
-EXPOSE 8088
-EXPOSE 9870
-EXPOSE 9000
-EXPOSE 10000
-EXPOSE 4040
-EXPOSE 8042
-EXPOSE 8030
-EXPOSE 8031
-EXPOSE 8032
-EXPOSE 8888
-EXPOSE 30000-50000
-EXPOSE 3000-3100
+EXPOSE 8088 9870 9000 10000 4040 8042 8030 8031 8032 8888 30000-50000 3000-3100
 
 # Start startup Script
-ENTRYPOINT ["/startup_hive.sh"]
+ENTRYPOINT ["/startup.sh"]
 
 

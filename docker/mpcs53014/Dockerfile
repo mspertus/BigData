@@ -1,4 +1,4 @@
-FROM mspertus/mpcs53014_hive:latest
+FROM mspertus/mpcs53014_hive_hbase:latest
 
 MAINTAINER Mike Spertus <mike@spertus.com>
 
@@ -10,11 +10,6 @@ RUN apt-get install -y nodejs
 USER hadoop
 WORKDIR /home/hadoop
 
-# Download and Install HBase
-RUN wget http://archive.apache.org/dist/hbase/2.0.2/hbase-2.0.2-bin.tar.gz && tar -xvzf hbase-2.0.2-bin.tar.gz && rm hbase-2.0.2-bin.tar.gz && mv hbase-2.0.2 hbase
-
-# Copy HBase config
-COPY hbase-site.xml /home/hadoop/hbase/conf/hbase-site.xml
 COPY create_hbase_table.txt /home/hadoop/create_hbase_table.txt
 
 RUN mkdir /home/hadoop/inputs
@@ -57,18 +52,7 @@ USER root
 WORKDIR /
 
 #Expose Hadoop Ports
-EXPOSE 8088
-EXPOSE 9870
-EXPOSE 9000
-EXPOSE 10000
-EXPOSE 4040
-EXPOSE 8042
-EXPOSE 8030
-EXPOSE 8031
-EXPOSE 8032
-EXPOSE 8888
-EXPOSE 30000-50000
-EXPOSE 3000-3100
+EXPOSE 8088 9870 9000 10000 4040 8042 8030 8031 8032 8888 30000-50000 3000-3100
 
 # Start startup Script
 ENTRYPOINT ["/startup_hive.sh"]

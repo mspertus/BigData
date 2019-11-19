@@ -27,12 +27,6 @@ if [ ! -e $CONTAINER_ALREADY_INITIALIZED ]; then
 	# Create Hive directories
         echo "Create Hive directories within HDFS."
 	sudo -u hadoop -H sh -c "echo executing start-all.sh; cd; /home/hadoop/hadoop/sbin/start-all.sh"
-        sudo -u hadoop -H sh -c "echo executing hadoop fs -mkdir -p /user/hive/warehouse; cd; /home/hadoop/hadoop/bin/hadoop fs -mkdir -p /user/hive/warehouse"
-	sudo -u hadoop -H sh -c "echo executing hadoop fs -chmod g+w /user/hive/warehouse; cd; /home/hadoop/hadoop/bin/hadoop fs -chmod g+w /user/hive/warehouse"
-	sudo -u hadoop -H sh -c "echo executing hadoop fs -mkdir -p /tmp; cd; /home/hadoop/hadoop/bin/hadoop fs -mkdir -p /tmp"
-        sudo -u hadoop -H sh -c "echo executing hadoop fs -chmod g+w /tmp; cd; /home/hadoop/hadoop/bin/hadoop fs -chmod g+w /tmp"
-	sudo -u hadoop -H sh -c "echo executing hadoop fs -mkdir /user/hadoop; cd; /home/hadoop/hadoop/bin/hadoop fs -mkdir /user/hadoop"
-	sudo -u hadoop -H sh -c "echo executing hive/bin/schematool -initSchema -dbType derby; cd; /home/hadoop/hive/bin/schematool -initSchema -dbType derby"
 
 	sudo -u hadoop -H sh -c "echo executing hdfs dfs -put /home/hadoop/inputs /inputs;  /home/hadoop/hadoop/bin/hdfs dfs -put /home/hadoop/inputs /inputs"
 	sudo -u hadoop -H sh -c "echo executing rm -r /home/hadoop/inputs;  rm -r /home/hadoop/inputs"
