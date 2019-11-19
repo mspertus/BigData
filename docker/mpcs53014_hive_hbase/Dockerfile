@@ -1,7 +1,7 @@
 FROM mspertus/mpcs53014_hive:latest
 
 MAINTAINER Mike Spertus <mike@spertus.com>
-
+RUN chown hadoop:hadoop /home/hadoop/.bashrc
 # Switch To Hadoop User
 USER hadoop
 WORKDIR /home/hadoop
@@ -11,15 +11,12 @@ RUN wget http://archive.apache.org/dist/hbase/2.0.2/hbase-2.0.2-bin.tar.gz && ta
 
 # Copy HBase config
 COPY hbase-site.xml /home/hadoop/hbase/conf/hbase-site.xml
-
-# Switch back to Root User
-USER root
-WORKDIR /
+RUN echo "export PATH=\$PATH:/home/hadoop/hbase/bin" >>/home/hadoop/.bashrc
 
 #Expose Hadoop Ports
 EXPOSE 8088 9870 9000 10000 4040 8042 8030 8031 8032 8888 30000-50000 3000-3100
 
 # Start startup Script
-ENTRYPOINT ["/startup_hive.sh"]
+ENTRYPOINT ["/startup.sh"]
 
 
